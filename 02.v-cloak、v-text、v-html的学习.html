@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!--插值表达式不会覆盖元素中的原始内容-->
+        <!--v-cloak能够解决插值表达式闪烁的问题（闪烁问题可以通过模拟慢速网络来重现）-->
+        <p v-cloak>+++++++++++++++{{msg}}----------------</p>
+        <!--v-text会覆盖元素中的原始内容-->
+        <!--v-text默认自动解决闪烁问题-->
+        <p v-text="msg"></p>
+        <!--插值表达式和v-text不会解析变量中的html标签，会渲染变量的原始字符串；v-html会渲染变量中的html标签。-->
+        <div v-html="msg2"></div>
+    </div>
+
+    <script src="./libs/vue-2.6.10.js"></script>
+    <script>
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                msg: "123",
+                msg2: "<h1>这是h1的内容</h1>"
+            }
+        });
+    </script>
+</body>
+
+</html>

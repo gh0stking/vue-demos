@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="libs/vue-2.6.10.js"></script>
+    <style>
+        .inner {
+            background-color: lightseagreen;
+            width: 100%;
+            height: 200px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!--使用.capture实现捕获触发事件的机制-->
+        <div class="inner" @click="divHandler">
+            <!--.stop修饰符用于阻止事件冒泡-->
+            <!-- <input type="button" value="点我" @click.stop="btnHandler"> -->
+            <!--.prevent修饰符用于阻止事件的默认行为，如表单的提交操作经常会用到-->
+            <a href="http://www.baidu.com" @click.prevent="linkHandler">百度</a>
+        </div>
+
+        <!--.self只有点击当前元素时才会触发事件处理函数-->
+        <!--.self只会阻止自己身上的冒泡行为，不会阻止别的父组件上的事件的冒泡行为-->
+        <div class="inner" @click.self="divHandler">
+            <button type="button" @click="btnHandler">点我</button>
+        </div>
+
+        <!--.once让事件只触发一次-->
+        <button type="button" @click.once="btnHandler">只会触发一次</button>
+
+        <!--事件修饰符可以串联-->
+        <div class="inner" @click="divHandler">
+            <button type="button" @click.prevent.once="btnHandler">只会触发一次</button>
+        </div>
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el: "#app",
+            data: {
+
+            },
+            methods: {
+                divHandler() {
+                    console.log("触发了div的点击事件");
+                },
+                btnHandler() {
+                    console.log("触发了按钮的点击事件");
+                },
+                linkHandler() {
+                    console.log("触发了链接的点击事件");
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!--1.导入vue的包-->
+    <script src="./libs/vue-2.6.10.js"></script>
+</head>
+
+<body>
+    <!--将来new的Vue实例会控制这个区域-->
+    <div id="app">
+        <p>{{msg}}</p>
+    </div>
+    <script>
+        // 2.创建一个Vue的实例
+        var vm = new Vue({
+            el: "#app",//表示当前new的Vue实例控制页面上哪个区域
+            data: {//data属性中存放的是el中要用到的数据
+                msg: "Vue学习笔记"//通过vue提供的指令把数据渲染到页面上(不提倡手动操作dom元素)
+            }
+        });
+    </script>
+</body>
+
+</html>

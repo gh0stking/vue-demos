@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./libs/vue-2.6.10.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!--v-bind时候vue中提供的绑定属性的指令-->
+        <button type="button" v-bind:title="mytitle">点我</button>
+        <!--v-bind简写形式[:属性名]-->
+        <!--v-bind中可以写合法的表达式-->
+        <button type="button" :title="mytitle+'123'">点我</button>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                mytitle: "这是一个自己定义的title"
+            }
+        });
+    </script>
+</body>
+
+</html>

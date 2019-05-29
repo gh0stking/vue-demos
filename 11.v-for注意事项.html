@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./libs/vue-2.6.10.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div>
+            id：<input type="text" v-model="id">
+            name：<input type="text" v-model="name">
+            <button type="button" v-on:click="add">添加</button>
+        </div>
+
+        <!--注意事项：-->
+        <!--1.在组件中使用v-for循环的时候，或者在一些特殊情况中使用v-for循环的时候，必须指定唯一的数字/字符串的:key值-->
+        <!--2.v-for循环时，key只能使用number或string-->
+        <!--3.key必须使用v-bind属性绑定的形式设置值-->
+        <p v-for="item in userList" v-bind:key="item.id">
+            <input type="checkbox" v-bind:id="item.id">
+            <label v-bind:for="item.id">{{item.id}}---{{item.name}}</label>
+        </p>
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                id: '',
+                name: '',
+                userList: [
+                    {
+                        id: 1,
+                        name: "张三"
+                    },
+                    {
+                        id: 2,
+                        name: "李四"
+                    },
+                    {
+                        id: 3,
+                        name: "王五"
+                    },
+                ]
+            },
+            methods: {
+                add() {
+                    this.userList.unshift({ id: this.id, name: this.name });
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

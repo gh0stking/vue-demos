@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./libs/vue-2.6.10.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!--1.直接通过v-bind设置一个对象来设置样式，注意：如果属性名中包含"-"则必须加引号-->
+        <h1 :style="{color:'red','font-weight':'200'}">这是一个h1标题</h1>
+        <h1 :style="styleObj">这是一个h1标题</h1>
+        <!--2.通过数组为元素设置样式-->
+        <h1 :style="[styleObj,styleObj2]">这是一个h1标题</h1>
+    </div>
+</body>
+<script>
+    var vm = new Vue({
+        el: "#app",
+        data: {
+            styleObj: { color: 'red', 'font-weight': '200' },
+            styleObj2: { "font-style": "italic" }
+        },
+        methods: {}
+    });
+</script>
+
+</html>

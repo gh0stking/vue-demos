@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./libs/vue-2.6.10.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!--1.循环渲染数组-->
+        <p v-for='(item,index) in list'>{{index}}:{{item}}</p>
+        <p v-for='(user,index) in userList'>{{index}}:{{user.name}}</p>
+        <!--2.循环渲染对象-->
+        <p v-for="(val,key,index) in user">键：{{key}} 值：{{val}} 索引：{{index}}</p>
+        <!--3.使用v-for迭代数字-->
+        <p v-for="num in 10">{{num}}</p>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                list: [1, 2, 3, 4, 5, 6],
+                userList: [
+                    {
+                        id: 1,
+                        name: "张三"
+                    },
+                    {
+                        id: 2,
+                        name: "李四"
+                    },
+                    {
+                        id: 3,
+                        name: "王五"
+                    },
+                ],
+                user: {
+                    id: 1,
+                    name: "赵六",
+                    sex: "男"
+                }
+            },
+            methods: {}
+        });
+    </script>
+</body>
+
+</html>
