@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./libs/vue-2.6.10.js"></script>
+    <!--vue-resource依赖于vue，所以需要先导入vue.js-->
+    <script src="./libs/vue-resource-1.5.1.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <button type="button" @click="getInfo">发送get请求</button>
+        <button type="button" @click="postInfo">发送post请求</button>
+        <button type="button" @click="jsonpInfo">发送jsonp请求</button>
+    </div>
+
+    <script>
+        //全局配置数据接口的根域名
+        //注意：如果全局配置了请求的根域名，则每次发起请求的时候url必须是相对路径，不能以斜线"/"开头，否则不会启用根路径做拼接。
+        Vue.http.options.root = "http://www.liulongbin.top:3005/";
+        //全局启用emulateJSON选项
+        Vue.http.options.emulateJSON = true;
+
+        var vm = new Vue({
+            el: "#app",
+            data: {},
+            created() {//当vue实例的data和methods初始化完毕后，vue实例会自动执行created这个生命生命周期函数
+                this.getInfo();
+            },
+            methods: {
+                getInfo() {
+                    //当发起get请求后，通过.then来设置请求成功的回调函数
+                    this.$http.get("api/getprodlist").then(function (result) {
+                        //通过result.body拿到服务器返回的数据
+                        console.log(result.body);
+                    });
+                },
+                postInfo() {
+                    //手动发起的post请求默认没有表单格式(application/x-www-form-urlencoded)
+                    //第一个参数是url,第二个参数是请求的参数，第三个参数是options
+                    //emulateJSON:true可以将post请求提交的内容设置为表单格式
+
+                    var prod = { name: "奥迪" };
+                    this.$http.post("api/addproduct", prod, { emulateJSON: true }).then(function (result) {
+                        console.log(result.body);
+                    });
+                },
+                jsonpInfo() {
+                    this.$http.jsonp("api/jsonpInfo").then(result => {
+                        console.log(result.body);
+                    });
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

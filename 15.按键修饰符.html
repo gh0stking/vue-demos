@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./libs/vue-2.6.10.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <p>姓名：<input type="text" v-model="name" @keyup.enter="showName"></p>
+        <p>姓名：<input type="text" v-model="name" @keyup.13="showName"></p>
+        <p>性别：<input type="text" v-model="sex" @keyup.f2="showSex"></p>
+    </div>
+
+    <script>
+        //自定义全局按键修饰符
+        Vue.config.keyCodes.f2 = 113;
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                name: "",
+                sex: ""
+            },
+            methods: {
+                showName() {
+                    alert(this.name);
+                },
+                showSex() {
+                    alert(this.sex);
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./libs/vue-2.6.10.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!--引用组件-->
+        <my-com2></my-com2>
+    </div>
+
+    <script>
+        //创建组件的方式二
+        Vue.component("my-com2", {
+            template: "<h3>这是直接使用Vue.component()创建的组件</h3><span>span</span>" //注意：无论是哪种方式创建出来的组件，组件的template属性只能有一个唯一的根元素，如 template:"<h3>这是一个h3</h3><span>这是一个span</span>" 将会报错 "Component template should contain exactly one root element"
+        });
+
+        var vm = new Vue({
+            el: "#app",
+            data: {},
+            methods: {}
+        });
+    </script>
+</body>
+
+</html>

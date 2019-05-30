@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./libs/vue-2.6.10.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <p>{{date|dateFormat("yyyy-MM-dd")}}</p>
+        <p>{{msg|msgFormat}}</p>
+    </div>
+
+    <div id="app2">
+        <p>{{myDate|dateFormat("yyyy-MM-dd hh:mm:ss")}}</p>
+    </div>
+
+    <script>
+        // 过滤器只能在两个地方使用：
+        // 1.插值表达式{{}}
+        // 2.v-bind表达式
+
+        // 过滤器的两种定义方法
+        // 1.全局过滤器
+        // Vue.filter("过滤器名称",function(data){});
+        // 2.私有过滤器
+        // filters:{dateFormat(date){},msgFormat(str){}}
+
+        //全局过滤器，可以在所有Vue区域中使用
+        Vue.filter("dateFormat", function (dateStr, format = "") {
+            var date = new Date(dateStr);
+            var y = date.getFullYear();
+            var m = (date.getMonth() + 1).toString().padStart(2, "0");
+            var d = (date.getDate()).toString().padStart(2, "0");
+
+            if (format.toLowerCase() === "yyyy-mm-dd") {
+                return `${y}-${m}-${d}`;
+            } else {
+                var hh = (date.getHours()).toString().padStart(2, "0");
+                var mm = (date.getMinutes()).toString().padStart(2, "0");
+                var ss = (date.getSeconds()).toString().padStart(2, "0");
+                return `${y}-${m}-${d} ${hh}:${mm}:${ss}`;
+            }
+        });
+
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                date: new Date(),
+                msg: "窗前明月光，疑是地上霜，"
+            },
+            methods: {},
+            filters: {//私有过滤器，只能在当前Vue对象管理的区域中使用
+                msgFormat: function (msg) {
+                    return msg.replace(/，/g, "!!!");
+                }
+            }
+        });
+
+        var vm2 = new Vue({
+            el: "#app2",
+            data: {
+                myDate: new Date()
+            }
+        });
+    </script>
+</body>
+
+</html>

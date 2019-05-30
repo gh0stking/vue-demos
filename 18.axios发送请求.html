@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./libs/vue-2.6.10.js"></script>
+    <script src="./libs/axios-0.18.0.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <button type="button" @click="getInfo">发送get请求</button>
+        <button type="button" @click="postInfo">发送post请求</button>
+    </div>
+
+    <script>
+        //全局配置请求的根路径
+        axios.defaults.baseURL = "http://www.liulongbin.top:3005/";
+        // axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
+        // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+
+        // 添加请求拦截器
+        axios.interceptors.request.use(function (config) {
+            // 在发送请求之前做些什么
+            console.log(config);
+            config.headers.common["Authorization"] = "test";
+            return config;
+        }, function (error) {
+            // 对请求错误做些什么
+            return Promise.reject(error);
+        });
+        axios.interceptors.response.use(function (response) {
+            // 对响应数据做点什么
+            console.log(response);
+            return response;
+        }, function (error) {
+            // 对响应错误做点什么
+            return Promise.reject(error);
+        });
+
+        var vm = new Vue({
+            el: "#app",
+            methods: {
+                getInfo() {
+                    axios.get("api/getprodlist").then(result => {
+                        console.log(result);
+                    }).catch(error => {
+                        console.log(error);
+                    })
+                },
+                postInfo() {
+                    var car = { name: "奥迪" };
+                    axios.post("api/addproduct", car).then(result => {
+                        console.log(result);
+                    });
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

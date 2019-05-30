@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./libs/vue-2.6.10.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <p>姓名：<input type="text"></p>
+        <p>性别：<input type="text" v-focus v-color="'pink'"></p>
+    </div>
+    <div id="app2">
+        <h1 v-fontweight="200">这是一段修改了font-weight的文本</h1>
+        <h1 v-fontsize="50">这是一段修改了font-size的文本</h1>
+    </div>
+
+    <script>
+        // 自定义全局指令
+        // 注意：自定义指令的时候，不需要加v-前缀，但是在调用的时候要加上v-前缀
+        // 1.第一个参数是自定义指令名称
+        // 2.第二个参数是指令相关的钩子函数
+
+        //自定义一个自动获取焦点的指令
+        Vue.directive("focus", {
+            bind: function (el) {
+                //当指令绑定到元素上时会执行bind函数，只触发一次
+                //第一个参数永远都是el,表示被绑定了指令的那个元素，这个el参数是一个原生的js对象
+                //在元素刚绑定了指定的时候，还没有插入到dom中去，这时候调用focus没有作用，因为一个元素只有插入到dom中后才能获取焦点
+                // el.focus();
+            },
+            inserted: function (el) {
+                //插入到dom中时会执行inserted函数，只触发一次
+                el.focus();
+            },
+            update: function () {
+                //当dom节点更新的时候会执行update函数，可能会触发多次
+            }
+        });
+
+
+        //自定义一个设置字体颜色的指令
+        Vue.directive("color", {
+            //和样式相关的操作一般都可以在bind中执行
+            bind: function (el, binding) {
+                console.log(binding);
+                //binding.value用于获取指令的参数值，如果参数值是一个字符串，需要加单引号
+                el.style.color = binding.value;//binding参数的属性可以参考Vue官方文档 https://cn.vuejs.org/v2/guide/custom-directive.html
+            }
+        });
+
+        var vm = new Vue({
+            el: "#app",
+            data: {},
+            methods: {}
+        });
+
+        var vm2 = new Vue({
+            el: "#app2",
+            data: {},
+            methods: {},
+            filters: {},
+            directives: {//自定义私有指令
+                'fontweight': {
+                    bind: function (el, binding) {
+                        el.style.fontWeight = binding.value;
+                    }
+                },
+                'fontsize': function (el, binding) {//注意：这是自定义指令的简写形式，表示在 bind 和 update 时触发相同行为
+                    el.style.fontSize = parseInt(binding.value) + 'px';
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

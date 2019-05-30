@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./libs/vue-2.6.10.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!--如果要使用组件，直接把组件的名称已html标签的形式引入到页面即可-->
+        <!--注意：如果组件名称中使用了驼峰命名法，在使用组件的时候必须使用横杠符号"-"将单词分开，且单词都用小写，不能直接使用原组件名称调用组价，否则会报错"Unknown custom element..."-->
+        <my-com1></my-com1>
+    </div>
+
+    <script>
+        //模块化和组件化的区别
+        //模块化：是从代码逻辑的角度进行划分的。方便代码分层开发，保证每个功能模块的职能单一
+        //组件化：是从UI界面的角度进行划分的。前端的组件化，方便UI组件的重用。
+
+        //创建组件的方式一
+        //1.1.使用Vue.extend来创建全局的Vue组件
+        var com1 = Vue.extend({
+            template: '<h3>这是通过 Vue.extend 创建的组件</h3>',//通过template属性指定了组件要展示的html结构
+        });
+        //1.2使用Vue.component()
+        Vue.component("myCom1", com1);
+
+        //简写形式
+        //第一个参数：组件的名称
+        //第二个参数：Vue.extend创建的组件
+        // Vue.component("myCom1", Vue.extend({
+        //     template: "<h3>这是通过 Vue.extend 创建的组件</h3>"
+        // }));
+
+        var vm = new Vue({
+            el: "#app",
+            data: {},
+            methods: {}
+        });
+    </script>
+</body>
+
+</html>

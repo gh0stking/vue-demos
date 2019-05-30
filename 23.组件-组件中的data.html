@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./libs/vue-2.6.10.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <my-com1></my-com1>
+        <counter></counter>
+        <counter></counter>
+        <counter></counter>
+    </div>
+
+    <template id="tmp1">
+        <div>
+            <button type="button" @click="increment">+1</button>
+            <h3>{{count}}</h3>
+        </div>
+    </template>
+
+    <script>
+        //1.组件可以有自己的data数据
+        //2.组件中的data必须是一个function
+        //3.data的function必须返回一个对象
+        //4.组件中data的使用方式和实例中data的使用方式完全一样
+        Vue.component("my-com1", {
+            template: "<h1>这是一个全局的自定义组件 --- data:{{msg}}</h1>",
+            data: function () {
+                return {
+                    msg: "这是组件中定义的数据"
+                };
+            }
+        });
+
+        Vue.component("counter", {
+            template: "#tmp1",
+            data: function () {
+                return {
+                    count: 0
+                };
+            },
+            methods: {
+                increment() {
+                    this.count++;
+                }
+            }
+        });
+
+        var vm = new Vue({
+            el: "#app",
+            data: {},
+            methods: {}
+        });
+    </script>
+</body>
+
+</html>

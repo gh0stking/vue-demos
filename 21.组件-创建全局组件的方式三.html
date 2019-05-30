@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./libs/vue-2.6.10.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!--再被控制的#app的外面，使用template元素创建组件的html结构-->
+        <my-com3></my-com3>
+    </div>
+
+    <div id="app2">
+        <my-com3></my-com3>
+    </div>
+
+    <!--定义组件的html结构，这段代码要放在Vue对象控制的区域外面-->
+    <template id="temp1">
+        <div>
+            <h1>这是一个通过template元素在外部定义的组件结构。</h1>
+        </div>
+    </template>
+
+    <script>
+        //创建组件的方式三
+        //注意：组件对应的template不能放在Vue控制的区域内部
+        Vue.component("my-com3", {
+            template: "#temp1"
+        });
+
+        var vm = new Vue({
+            el: "#app",
+            data: {},
+            methods: {}
+        });
+
+        var vm2 = new Vue({
+            el: "#app2"
+        });
+    </script>
+</body>
+
+</html>

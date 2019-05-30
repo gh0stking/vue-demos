@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./libs//vue-2.6.10.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <login></login>
+        <register></register>
+    </div>
+
+    <template id="register">
+        <div>
+            <h2>这是私有的register组件</h2>
+        </div>
+    </template>
+
+    <script>
+        var vm = new Vue({
+            el: "#app",
+            data: {},
+            methods: {},
+            components: {//Vue实例内部定义私有组件
+                login: {
+                    template: "<h1>这是私有的login组件</h1>"
+                },
+                register: {
+                    template: "#register"
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
