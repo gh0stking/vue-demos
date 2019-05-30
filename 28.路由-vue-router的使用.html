@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./libs/vue-2.6.10.js"></script>
+    <!--1.安装vue-router路由模块-->
+    <script src="./libs/vue-router-3.0.6.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <a href="" @click.prevent=""></a>
+        <a href="" @click.prevent=""></a>
+    </div>
+
+    <script>
+        var login = Vue.component({
+            template: "<h1>login</h1>"
+        });
+        var register = Vue.component({
+            template: "<h1>register</h1>"
+        });
+
+        //2.创建一个路由对象。当导入vue-router模块之后，在window全局对象中，就有了一个路由的构造函数VueRouter
+        var routerObj = new VueRouter({
+            routes: [//路由匹配规则
+                //每个路由规则都是一个对象，每个对象必须包含两个属性:
+                //path:表示监听哪个路由链接地址
+                //component:表示如果是路由匹配到的path，则显示component对应的那个组件
+                {
+                    path: "/login",
+                    component: login,//此处必须是一个组件模板对象，不能是组件名称
+                }, {
+                    path: "/register",
+                    component: register,
+                }
+            ]
+        });
+
+        var vm = new Vue({
+            el: "#app",
+            data: {},
+            methods: {},
+            router: routerObj,//3.将路由规则对象注册到vm对象上
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./libs/vue-2.6.10.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!--父组件向子组件传递方法时，使用的是事件绑定机制v-on:func-->
+        <com1 @parentfunc="show"></com1>
+    </div>
+
+    <template id="tmp1">
+        <div>
+            <h1>这是子组件</h1>
+            <input type="button" @click="myclick" value="调用父组件的show方法">
+        </div>
+    </template>
+
+    <script>
+        var vm = new Vue({
+            el: "#app",
+            data: {},
+            methods: {
+                show(name, age) {
+                    console.log("调用了父组件的show方法-------------姓名：" + name + "，年龄：" + age);
+                }
+            },
+            components: {
+                com1: {
+                    template: "#tmp1",
+                    methods: {
+                        myclick() {
+                            //当点击子组件的按钮时，通过this.$emit调用父组件传递的方法，如果有参数，从第二个参数开始按顺序写入参数值即可。
+                            this.$emit("parentfunc", "张三", 123);
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
